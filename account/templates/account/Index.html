@@ -1,0 +1,16 @@
+<!-- 로그인 중 -->
+{% if user.is_active %} 
+<p>Welcome, <b>{{ user.name }}. </b>Thanks for logging in.</p>
+        {% if user.is_staff %}
+                <legend>관리자(staff)입니다. </legend><br> 
+        {% endif %}   
+    <li><a href="{% url 'account:logout' %}">로그아웃 </a></li>
+
+<!-- 로그아웃 상태 -->
+{%else %}
+    로그아웃상태<Br>
+    <li><a href="{% url 'account:login' %}">로그인 </a></li>
+    <li><a href="{% url 'account:signup' %}"> 일반 유저 회원가입 </a></li>
+    <li><a href="{% url 'account:signupAdmin' %} "> admin 회원가입 </a></li>
+
+{% endif %}

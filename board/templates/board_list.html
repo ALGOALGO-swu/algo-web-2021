@@ -1,0 +1,27 @@
+
+{% block contents %}
+
+        <table >
+                <tr>
+                    <th>#</th>
+                    <th>제목</th>
+                    <th>아이디</th>
+                    <th>일시</th>
+                </tr>
+
+                {% for board in boards %}
+                <tr>
+                    <th>{{ board.id }}</th>
+                    <th>{{ board.title }}</th>
+                    <th>{{ board.writer }}</th>
+                    <th>{{ board.registered_dttm }}</th>
+                </tr>
+                {% endfor %}
+        </table>
+<br><br><br><br><br>
+<div class="row">
+    <div class="col-12">
+        <a href="{% url 'board:board_write' %}"><button>글쓰기</button></a>
+    </div>
+</div>
+{% endblock %}
