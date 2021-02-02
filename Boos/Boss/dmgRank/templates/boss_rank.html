@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>!Boss_Rank</title>
+</head>
+<body>
+    <h2>!Boss</h2>
+    <h3>Boss의 체력을 출력한다</h3>
+    {{curr_life.life}}</br></br></br>
+
+    <h3>Boss의 남은 체력 %</h3>
+    {% load dmg_filter %}
+    {{ curr_life.life|currentLife }} % </br></br></br>
+
+
+    <h3>Boss Rank를 출력한다</h3>
+
+    <table border="1" width="300">
+        <tr>
+            <td align="center">번호</td>
+            <td>아이디</td>
+            <td>데미지</td>
+            <td>퍼센트</td>
+        </tr>
+
+        {% for rank in boss_rank %}
+        <tr>
+            <td align="center">{{forloop.counter}}</td>
+            <td>{{rank.discord_id}}</td>
+            <td align="center">{{rank.total_dmg}}</td>
+            <td align="center">
+                {% load dmg_filter %}
+                {{ rank.total_dmg|dmgPer:curr_life.life }} %
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

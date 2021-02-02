@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>!Boss</title>
+</head>
+<body>
+    <h2>!Boss</h2>
+    <h3>Boss의 체력을 출력한다</h3>
+    {{curr_life.life}}</br></br></br>
+
+    <h3>Boss의 남은 체력 %</h3>
+    {% load life_filter %}
+    {{ curr_life.life|currentLife }} % </br></br></br>
+</body>
+</html>
