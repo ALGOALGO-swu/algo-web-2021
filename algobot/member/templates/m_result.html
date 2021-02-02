@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>!member</title>
+</head>
+<body>
+    <table border="1" width="500">
+    {% for m in mem%}
+    <tr>
+    <td>{{forloop.counter}}&nbsp;&nbsp;</td>
+        {%for i in m%}
+            <td>{{i}}&nbsp;&nbsp;</td>
+        {%endfor%}
+    </tr>
+    {%endfor%}
+    </table>
+</body>
+</html>
