@@ -5,6 +5,7 @@
                 <legend>관리자(staff)입니다. </legend><br> 
         {% endif %}   
     <li><a href="{% url 'account:logout' %}">로그아웃 </a></li>
+    <li><a href="{% url 'account:showuserinfo' %}">사용자 정보 보기 </a></li>
 
 <!-- 로그아웃 상태 -->
 {%else %}

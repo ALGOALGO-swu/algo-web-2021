@@ -10,10 +10,8 @@ class Board(models.Model):
    
     def __str__(self):
         return self.title
-        
-'''
+
     class Meta:
-        db_table = 'algoalgo_board'
-        verbose_name = '알고알고 게시글'  # 관리자 화면에 모델 객체 이름 지정 
-        verbose_name_plural = '알고알고 게시글들'
-'''
+        db_table = 'board'
+        verbose_name = '알고알고 게시판'  # 관리자 화면에 모델 객체 이름 지정 
+        verbose_name_plural = '알고알고 게시판'

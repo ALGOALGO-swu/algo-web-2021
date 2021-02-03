@@ -1,22 +1,27 @@
-{% block conntents %}
-        <form method="POST" action=".">
-            {% csrf_token%}
+{% block content %}
+<div class = "row mt-5">
+    <div class = "col-12">
+        <form method = "POST" action=".">
+            {% csrf_token %}
             {% for field in form %}
-                <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
+            <div class ="form-group">
+                <label for = "{{ field.id_for_label }}">{{field.label}}</label>
                 {{ field.field.widget.name }}
-                
-                {% ifequal filed.name 'contents' %}
-                <textarea name="{{field.name}}" placeholder="{{ filed.label }}" ></textarea>
+
+                {% ifequal field.name 'contents' %}
+                <textarea class = "form-control" name = "{{ field.name }}" placeholder = "{{field.label}}"></textarea>
+
                 {% else %}
-                <input type="{{ field.field.widget.input_type }}" id="{{field.id_for_label }}"
-                    placeholder="{{ field.label }} " name="{{ field.name}}" />
-                {% endifequal %}    
-                
-                {% if field.errors %}
-                <span style="color : red":> {{ field.errors }}</span>
-                {% endif %}
+                <input type = "{{ field.field.widget.input_type }}" class ="form-control" id ="{{field.id_for_label}}" 
+                placeholder = "{{field.label}}" name = "{{field.name}}">
+                {% endifequal %}
+            </div>
+        
             {% endfor %}
-            <button type="submit" >글쓰기</button>
+            <button type="submit"  style = "float:right;">글쓰기</button>
+            <button type ="button" style = "float:left;" onclick = "location.href ='/board/list/'">돌아가기</button>
         </form>
+    </div>
+</div>
 
 {% endblock %}

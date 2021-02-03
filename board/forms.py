@@ -1,5 +1,5 @@
 from django import forms
-
+from board.models import Board
 class BoardForm(forms.Form):
     title = forms.CharField(
         error_messages={
@@ -11,3 +11,7 @@ class BoardForm(forms.Form):
          error_messages={
             'required' : '제목을 입력해주세요.'
         }, widget=forms.Textarea, label="내용")
+    
+    class Meta :
+        model = Board
+        fields =['title', 'contents']

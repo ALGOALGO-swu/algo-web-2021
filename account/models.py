@@ -7,10 +7,7 @@ from django.contrib.auth.models import (
 class Algo_UserManager(BaseUserManager):
     # 유저 생성 
     def create_user(self, web_id, discord_id, student_id, baekjoon_id, name, email, password=None):
-        """
-        Creates and saves a User with the given email, date of
-        birth and password.
-        """
+    
         if not web_id:
             raise ValueError('Users must have an id')
 
@@ -29,10 +26,7 @@ class Algo_UserManager(BaseUserManager):
 
     #관리자 생성 
     def create_superuser(self, web_id, discord_id, student_id, baekjoon_id, name, email, password=None):
-        """
-        Creates and saves a superuser with the given email, date of
-        birth and password.
-        """
+
         user = self.model(
             web_id=web_id,
             discord_id=discord_id,
@@ -41,6 +35,7 @@ class Algo_UserManager(BaseUserManager):
             name=name,
             email=self.normalize_email(email),
         )
+
         user.is_admin = True
         user.save(using=self._db)
         return user
@@ -71,33 +66,41 @@ class Algo_User(AbstractBaseUser):
         return self.web_id
 
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     @property
     def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
         return self.is_admin
 
     
 
 
 
-'''
 
-# 커스텀 유저 모델 사용
-class member(AbstractUser):
-    tel = models.CharField(max_length=20, null=True, blank=True)
+# 기존 DB의 member 테이블 가져옴
+
+class Member(models.Model):
+    discord_id = models.CharField(unique=True, max_length=45)
     student_id = models.CharField(unique=True, max_length=45)
+    name = models.CharField(max_length=45)
+    point = models.IntegerField()
+    map_location = models.IntegerField()
+    status = models.IntegerField()
+    items = models.TextField(blank=True, null=True)
+    daily_steps = models.IntegerField(blank=True, null=True)
     baekjoon_id = models.CharField(max_length=45, blank=True, null=True)
+    bj_solved = models.TextField(blank=True, null=True)
+    bj_solv_contd = models.IntegerField()
+    bj_rank = models.CharField(max_length=45, blank=True, null=True)
+    bj_today = models.IntegerField()
 
-    def __str__(self):
-        return self.username
-'''
+    class Meta:
+        managed = False
+        db_table = 'member'
+
+
+
+

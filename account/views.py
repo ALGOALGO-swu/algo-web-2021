@@ -1,11 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .forms import addUserForm
+from account.models import Algo_User, Member
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-
+from django.http import Http404
 
 # 메인 홈 
 def Index (request):
@@ -18,10 +19,10 @@ def signup(request):
         form = addUserForm(request.POST)
         if form.is_valid():
             form.save() 
-            username = form.cleaned_data.get('username') 
+            web_id = form.cleaned_data.get('web_id')  
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)  
-            login(request, user)
+            user = authenticate(web_id=web_id, password=raw_password) 
+            login(request, user) 
             return HttpResponseRedirect('/account')
     else:
         form = addUserForm()
@@ -66,6 +67,7 @@ def login_view(request):
             if user is not None:
                 print(user)
                 login(request, user) 
+                request.session['user'] = user.web_id
                 return HttpResponseRedirect('/account')
             else:
                 print('User not found')
@@ -76,5 +78,33 @@ def login_view(request):
 
 # 로그아웃 
 def logout_view(request):
+    if request.session.get('user'):
+        del(request.session['user'])
     logout(request)
     return HttpResponseRedirect('/account')
+
+
+# 마이페이지 조회
+def showuserinfo(request):
+    if not request.session.get('user'): 
+        return redirect('/account/login')
+        
+    if request.method =='GET':
+        try:
+            user_id=int(request.session.get('user'))
+        
+            if Algo_User.objects.filter(id=user_id).exists() :
+                algo_user=Algo_User.objects.get(id=user_id)
+                discord_id = algo_user.discord_id
+
+                if Member.objects.filter(discord_id=discord_id).exists(): 
+                    member=Member.objects.get(discord_id=discord_id)
+                    context={'algo_user' : algo_user, 'member': member}
+
+        except algo_User.DoesNotExist: # 이거 수정 
+                raise Http404("member does not exist")
+
+        return render(request, 'account/showuserinfo.html',context)  
+
+
+          
