@@ -6,7 +6,12 @@
 </head>
 <body>
 <h3>rank</h3>
-
+<form action="/admin/" method="post">
+    {% csrf_token %}
+    {% for date in date_list %}
+        <input type="submit" name="selected_date" value="{{ date|date:'Y-m-d' }}"></input>
+    {% endfor %}
+</form>
 <table>
     <tr>
         <td>rank</td>
@@ -22,6 +27,7 @@
     <tr>
         <td>{{ forloop.counter }}</td>
         <td>{{ member.discord_id }}</td>
+        <td>{{ member.student_id }}</td>
         <td>{{ member.baekjoon_id }}</td>
         <td>{{ member.name }}</td>
         <td>{{ member.point }}</td>
@@ -30,7 +36,6 @@
     </tr>
     {% endfor %}
 </table>
-
 
 <h3>칸 별 인원 분포</h3>
 {% for map in map_list %}

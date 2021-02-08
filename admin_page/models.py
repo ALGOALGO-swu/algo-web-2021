@@ -37,3 +37,17 @@ class Member(models.Model):
     class Meta:
         managed = False
         db_table = 'member'
+
+
+class Leaderboard(models.Model):
+    rank_datetime = models.DateTimeField()
+    rank_num = models.IntegerField()
+    student_id = models.CharField(max_length=45)
+    name = models.CharField(max_length=45)
+    point = models.IntegerField()
+    map_location = models.IntegerField()
+    arrival_time = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'leaderboard'
