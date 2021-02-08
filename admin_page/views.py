@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from .models import Map, Member, Leaderboard
+from .models import Boss, MemberBoss
 from django.db.models import OuterRef, Subquery
 
-# Create your views here.
-
+# 리더보드
 
 def show_info(request):
     maps = Map.objects.all()[:50]
@@ -35,10 +35,27 @@ def show_info(request):
         # 전체 랭킹
         member_rank = Member.objects.all().order_by('-map_location')[:5]
 
+
+
+    # 보스레이드
+
+    try:
+        boss_rank = MemberBoss.objects.all().order_by('-total_dmg')[:5]
+        curr_life = Boss.objects.all()[0]
+
+    except Exception as ex:
+        raise ex
+
     context = {
         'map_list': map_list,
         'member_rank': member_rank,
         'date_list': date_list,
         'member_list': member_list,
+        'boss_rank': boss_rank,
+        'curr_life': curr_life
     }
     return render(request, 'admin/admin_page.html', context)
+
+
+# 데일리 백준
+

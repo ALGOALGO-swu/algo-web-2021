@@ -51,3 +51,25 @@ class Leaderboard(models.Model):
     class Meta:
         managed = False
         db_table = 'leaderboard'
+
+
+class Boss(models.Model):
+    season = models.IntegerField(primary_key=True)
+    life = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'boss'
+
+
+class MemberBoss(models.Model):
+    discord_id = models.CharField(unique=True, max_length=45)
+    student_id = models.CharField(unique=True, max_length=45)
+    attack = models.IntegerField()
+    total_dmg = models.IntegerField()
+    total_hit = models.IntegerField()
+    total_bomb = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'member_boss'
