@@ -1,0 +1,37 @@
+{% block contents %}
+{% if user.is_active %} 
+        <b>현재 사용자  : {{ user.name }}</b>
+        <li><a href="{% url 'account:logout' %}">로그아웃 </a></li> <br><br>
+{% else %}
+        로그아웃 상태<Br>
+        <a href="{% url 'account:login' %}"><Button>로그인</Button> </a>
+        <br><br>
+{% endif %} 
+        <!-- 게시판 출력 -->
+        <table style="border: 1px solid black; border-collapse: collapse;">
+                <tr>
+                    <th>#</th>
+                    <th>제목 &emsp;</th>
+                    <th>아이디&emsp;</th>
+                    <th>작성일&emsp;</th>
+                </tr>
+
+                {% for board in boards %}
+                        <tr onclick = "location.href = '/board/detail/{{board.id}}'">
+                        <th>{{ board.id }}&emsp;</th>
+                        <th>{{ board.title }}&emsp;</th>
+                        <th>{{ board.writer }}&emsp;</th>
+                        <th>{{ board.registered_dttm }}&emsp;</th>
+                        </tr>
+                {% endfor %}
+        </table>
+
+<br><br><br><br><br>
+
+        {% if user.is_staff %} <!-- admin 권한이 있어야만 글쓰기 버튼이 보임 -->
+        <a href="{% url 'board:board_write' %}"><button>글쓰기</button></a><br> 
+        {% endif %} 
+       
+
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% if algo_user %}
+
+<h1> USER : {{algo_user.web_id}}</h1>
+
+<h2>사용자 정보</h2>
+    <table style= "border-collapse:separate ; border:2px gray solid" >
+        <tr>
+            <td>계정아이디 </td>
+            <td>{{algo_user.name}}</td>
+        </tr>
+        <tr>
+            <td>이름 </td>
+            <td>{{algo_user.name}}</td>
+        </tr>
+        <tr>
+            <td>학번  </td>
+            <td>{{algo_user.student_id}}</td>
+        </tr>
+        <tr>
+            <td>디스코드 아이디 </td>
+            <td>{{algo_user.discord_id}}</td>
+        </tr>
+        <tr>
+            <td>이메일  </td>
+            <td>{{algo_user.email}}</td>
+        </tr>
+        <tr>
+            <td> admin 확인   </td>
+            <td>{{algo_user.is_admin}}</td>
+        </tr>
+    </table>
+
+<h2>게임 관련 정보</h2>
+    <table style= "border-collapse:separate ; border:2px gray solid" >
+        <tr>
+            <td>현재 상태 </td>
+            <td>{{member.status }}</td>
+        </tr>
+        <tr>
+            <td>현재 위치 </td>
+            <td>{{member.map_location }}</td>
+        </tr>
+        <tr>
+            <td>오늘 스텝 사용 여부  </td>
+            <td>{{member.daily_steps }}</td>
+        </tr>
+        <tr>
+            <td>보유 포인트 </td>
+            <td>{{member.point}}</td>
+        </tr>
+        <tr>
+            <td>보유 아이템</td>
+            <td>{{member.items }}</td>
+        </tr>
+    </table>
+
+
+    <h2>백준 관련 정보</h2>
+    <table style= "border-collapse:separate ; border:2px gray solid" >
+        <tr>
+            <td>백준 아이디</td>
+            <td>{{algo_user.baekjoon_id }}</td>
+        </tr>
+        <tr>
+            <td>현재 푼 문제 </td>
+            <td>{{member.bj_solved}}</td>
+        </tr>
+        <tr>
+            <td>연속 데일리 백준 진행 일수 </td> 
+            <td>{{member.bj_solv_contd }} 일</td>
+        </tr>
+        
+    </table>
+{% endif %}

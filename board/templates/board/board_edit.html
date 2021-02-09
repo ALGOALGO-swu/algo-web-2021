@@ -1,0 +1,28 @@
+{% block content %}
+<div class = "row mt-5">
+    <div class = "col-12">
+        <form method = "POST" action=".">
+            {% csrf_token %}
+            {% for field in form %}
+            <div>
+                <label for = "{{ field.id_for_label }}">{{field.label}}</label>
+                {{ field.field.widget.name }}
+
+                {% ifequal field.name 'contents' %}
+                <textarea name = "{{ field.name }}" placeholder = "{{field.value}}" rows="10" cols="40">{{field.value}}</textarea>
+
+                {% else %}
+                <input type = "{{ field.field.widget.input_type }}" id ="{{field.id_for_label}}" 
+                placeholder = "{{field.label}}" name = "{{field.name}}" value="{{field.value}}"size="43" >
+                
+                {% endifequal %}
+            </div>
+            
+            {% endfor %}
+            <button type="submit"  style = "float:right;" onclick="return confirm('수정 하시겠습니까?')">수정하기</button>
+            <button type ="button" style = "float:left;" onclick = "location.href ='/board/list/'"  onclick="return confirm('수정 중인 내용이 삭제됩니다. 돌아가시겠습니까?')">돌아가기</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
